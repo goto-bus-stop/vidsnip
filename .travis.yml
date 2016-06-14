@@ -1,0 +1,17 @@
+language: java
+jdk:
+  - oraclejdk8
+
+before_script:
+  - mysql -e 'create database vidsnip;'
+
+script:
+  - mvn test -Dspring.profiles.active=travis
+
+services:
+  - mysql
+
+sudo: false
+
+notifications:
+  email: false
