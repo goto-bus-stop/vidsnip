@@ -46,6 +46,11 @@ public class User {
 
     public User(String username) {
         this.username = username;
+        this.realName = username;
+    }
+    public User(String username, String realName) {
+        this.username = username;
+        this.realName = realName;
     }
 
     public String getUsername() {

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Timeline</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p th:text="'Hello, ' + ${user.realName} + '!'" />
+    <div th:each="snip : ${snips}" th:object="${snip}">
+        <h2 th:text="*{author.username}" />
+        <div
+            data-hook="embed"
+            th:attr="
+                data-video-id=*{video.videoId},
+                data-start=*{video.startSeconds},
+                data-end=*{video.endSeconds}
+            "
+        >
+            <a th:href="'https://youtu.be/' + *{video.videoId} + '?t=' + *{video.startSeconds}"
+               th:text="'https://youtu.be/' + *{video.videoId} + '?t=' + *{video.startSeconds}" />
+        </div>
+    </div>
+
+    <script>
+        // TODO Move to a separate JavaScript file.
+        function $ (sel, map) {
+            return [].map.call(document.querySelectorAll(sel), map || Object)
+        }
+
+        window.onYouTubeIframeAPIReady = function () {
+            $('[data-hook*="embed"]', function (embed) {
+                var videoId = embed.dataset.videoId
+                var start = embed.dataset.start
+                var end = embed.dataset.end
+                new YT.Player(embed, {
+                    height: '360',
+                    width: '640',
+                    videoId: videoId,
+                    playerVars: {
+                      start: start,
+                      end: end
+                    }
+                })
+            })
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
