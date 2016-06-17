@@ -68,7 +68,7 @@ public class User {
     }
 
     public Optional<Snip> getBio() {
-        return Optional.of(this.bio);
+        return Optional.ofNullable(this.bio);
     }
     public void setBio(Snip bio) {
         this.bio = bio;
