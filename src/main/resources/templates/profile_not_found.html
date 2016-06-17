@@ -1,1 +1,12 @@
-<h1>User not found</h1>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head ('User ' + ${username} + ' not found')"></head>
+<body>
+    <nav th:replace="layout :: navigation" />
+    <main class="container-fluid">
+        <div class="alert alert-error">
+            <h1 th:text="'User ' + ${username} + ' not found'"></h1>
+        </div>
+    </main>
+</body>
+</html>

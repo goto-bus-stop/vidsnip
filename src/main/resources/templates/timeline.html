@@ -1,25 +1,29 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Timeline</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<head th:include="layout :: head (Timeline)"></head>
 <body>
-    <p th:text="'Hello, ' + ${user.realName} + '!'" />
-    <div th:each="snip : ${snips}" th:object="${snip}">
-        <h2 th:text="*{author.username}" />
-        <div
-            data-hook="embed"
-            th:attr="
-                data-video-id=*{video.videoId},
-                data-start=*{video.startSeconds},
-                data-end=*{video.endSeconds}
-            "
-        >
-            <a th:href="'https://youtu.be/' + *{video.videoId} + '?t=' + *{video.startSeconds}"
-               th:text="'https://youtu.be/' + *{video.videoId} + '?t=' + *{video.startSeconds}" />
+    <nav th:replace="layout :: navigation" />
+    <main class="container-fluid">
+        <aside class="col-sm-3">
+            <p th:text="'Hello, ' + ${user.realName} + '!'" />
+        </aside>
+        <div class="col-sm-9">
+            <div th:each="snip : ${snips}" th:object="${snip}">
+                <h2 th:text="*{author.username}" />
+                <div
+                    data-hook="embed"
+                    th:attr="
+                        data-video-id=*{video.videoId},
+                        data-start=*{video.startSeconds},
+                        data-end=*{video.endSeconds}
+                    "
+                >
+                    <a th:href="'https://youtu.be/' + *{video.videoId} + '?t=' + *{video.startSeconds}"
+                       th:text="'https://youtu.be/' + *{video.videoId} + '?t=' + *{video.startSeconds}" />
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script>
         // TODO Move to a separate JavaScript file.
