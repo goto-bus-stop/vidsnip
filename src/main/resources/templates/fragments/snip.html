@@ -1,6 +1,6 @@
 <div class="snip" th:fragment="snip (snip)">
     <div class="snip-author" th:object="${snip.author}">
-        <a th:href="@{/profile}">
+        <a th:href="@{'/@/' + *{username}}">
             <span class="snip-author-name" th:text="*{realName}"></span>
             <span class="snip-author-username" th:text="'@' + *{username}"></span>
         </a>
