@@ -25,7 +25,7 @@ public class TimelineController {
     @Autowired
     private UserRepository users;
 
-    @RequestMapping(value = "/timeline", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String timeline(Model model) {
         final long currentUserId = 1;
         model.addAttribute("user", this.users.findOne(currentUserId));
