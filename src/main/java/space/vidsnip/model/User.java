@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -51,6 +51,7 @@ public class User {
     public String getUsername() {
         return this.username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -58,6 +59,7 @@ public class User {
     public String getRealName() {
         return this.realName;
     }
+
     public void setRealName(String realName) {
         this.realName = realName;
     }
@@ -65,6 +67,7 @@ public class User {
     public Optional<Snip> getBio() {
         return Optional.of(this.bio);
     }
+
     public void setBio(Snip bio) {
         this.bio = bio;
     }
