@@ -1,24 +1,15 @@
-<div class="snip" th:fragment="snip (snip)">
-    <div class="snip-author" th:object="${snip.author}">
-        <a th:href="@{'/@/' + *{username}}">
-            <span class="snip-author-name" th:text="*{realName}"></span>
-            <span class="snip-author-username" th:text="'@' + *{username}"></span>
-        </a>
-    </div>
-    <div class="snip-video" th:object="${snip.video}">
-        <div
-            data-hook="embed"
-            th:attr="
-                data-video-id=*{videoId},
-                data-start=*{startSeconds},
-                data-end=*{endSeconds}
-            "
-        >
-            <a th:href="'https://youtu.be/' + *{videoId} + '?t=' + *{startSeconds}">
-                <img class="snip-video-placeholder"
-                     th:alt="'https://youtu.be/' + *{videoId} + '?t=' + *{startSeconds}"
-                     th:src="'https://i.ytimg.com/vi/' + *{videoId} + '/sddefault.jpg'" />
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+    <div class="snip" th:fragment="snip (snip)">
+        <div class="snip-author" th:object="${snip.author}">
+            <a th:href="@{'/@/' + *{username}}">
+                <span class="snip-author-name" th:text="*{realName}"></span>
+                <span class="snip-author-username" th:text="'@' + *{username}"></span>
             </a>
         </div>
+        <div th:replace="fragments/video :: video (${snip.video})"></div>
     </div>
-</div>
+</body>
+</html>
