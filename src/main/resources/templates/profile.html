@@ -2,26 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="layout :: head (${user.realName})"></head>
 <body>
-    <nav th:replace="layout :: navigation" />
+    <nav th:replace="layout :: navigation"></nav>
     <main class="container-fluid">
         <aside class="col-sm-3">
-            <p th:text="${user.realName}" />
+            <p th:text="${user.realName}"></p>
         </aside>
         <div class="col-sm-9">
-            <div th:each="snip : ${snips}" th:object="${snip}">
-                <h2 th:text="*{author.username}" />
-                <div
-                    data-hook="embed"
-                    th:attr="
-                        data-video-id=*{video.videoId},
-                        data-start=*{video.startSeconds},
-                        data-end=*{video.endSeconds}
-                    "
-                >
-                    <a th:href="'https://youtu.be/' + *{video.videoId} + '?t=' + *{video.startSeconds}"
-                       th:text="'https://youtu.be/' + *{video.videoId} + '?t=' + *{video.startSeconds}" />
-                </div>
-            </div>
+            <th:block th:each="snip : ${snips}">
+                <div th:replace="fragments/snip :: snip (${snip})"></div>
+            </th:block>
         </div>
     </main>
 
