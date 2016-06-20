@@ -3,11 +3,16 @@
 <head></head>
 <body>
     <div class="snip" th:fragment="snip (snip)">
-        <div class="snip-author" th:object="${snip.author}">
-            <a th:href="@{'/@/' + *{username}}">
+        <div class="snip-meta" th:object="${snip.author}">
+            <a class="snip-author" th:href="@{'/@/' + *{username}}">
                 <span class="snip-author-name" th:text="*{realName}"></span>
                 <span class="snip-author-username" th:text="'@' + *{username}"></span>
             </a>
+            <time class="snip-meta-time"
+                  th:datetime="${#dates.formatISO(snip.createdAt)}"
+                  th:text="${#dates.format(snip.createdAt, 'dd MMMM yyyy HH:mm:ss')}">
+                2016-06-20 15:23:43
+            </time>
         </div>
         <div th:replace="fragments/video :: video (${snip.video})"></div>
     </div>
