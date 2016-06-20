@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head (Timeline)"></head>
+<body>
+    <nav th:replace="layout :: navigation" />
+    <main class="container-fluid">
+        <aside class="col-sm-3">
+            <p th:text="'Hello, ' + ${user.realName} + '!'" />
+        </aside>
+        <div class="col-sm-9">
+            <th:block th:each="snip : ${snips}">
+                <div th:replace="fragments/snip :: snip (${snip})"></div>
+            </th:block>
+        </div>
+    </main>
+
+    <script th:src="@{/js/youtube-embeds.js}"></script>
+</body>
+</html>

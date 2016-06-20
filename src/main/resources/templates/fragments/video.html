@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+    <div class="snip-video embed-responsive embed-responsive-16by9"
+         th:fragment="video (video)">
+        <div
+            th:if="${video} != null"
+            class="embed-responsive-item"
+            data-hook="embed"
+            th:attr="
+                data-video-id=${video.videoId},
+                data-start=${video.startSeconds},
+                data-end=${video.endSeconds}
+            "
+        >
+            <a th:href="'https://youtu.be/' + ${video.videoId} + '?t=' + ${video.startSeconds}">
+                <img class="snip-video-placeholder"
+                     th:alt="'https://youtu.be/' + ${video.videoId} + '?t=' + ${video.startSeconds}"
+                     th:src="'https://i.ytimg.com/vi/' + ${video.videoId} + '/sddefault.jpg'" />
+            </a>
+        </div>
+    </div>
+</body>
+</html>

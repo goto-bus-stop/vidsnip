@@ -46,6 +46,11 @@ public class User {
 
     public User(String username) {
         this.username = username;
+        this.realName = username;
+    }
+    public User(String username, String realName) {
+        this.username = username;
+        this.realName = realName;
     }
 
     public String getUsername() {
@@ -65,7 +70,7 @@ public class User {
     }
 
     public Optional<Snip> getBio() {
-        return Optional.of(this.bio);
+        return Optional.ofNullable(this.bio);
     }
 
     public void setBio(Snip bio) {
