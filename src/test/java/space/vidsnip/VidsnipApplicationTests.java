@@ -10,9 +10,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @SpringApplicationConfiguration(classes = VidsnipApplication.class)
 @WebAppConfiguration
 public class VidsnipApplicationTests {
-
-	@Test
-	public void contextLoads() {
-	}
-
+    @Test
+    public void contextLoads() {
+    }
 }
