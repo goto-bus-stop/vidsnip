@@ -1,0 +1,25 @@
+
+body { padding-top: 70px }
+.video-search-query {
+    margin-top: 0;
+}
+.snip-video-editing {
+    position: relative;
+}
+.snip-video-timeline {
+    position: absolute;
+    height: 5px;
+    width: 100%;
+    margin-top: -5px;
+    background: #009688;
+}
+.snip-video-timeline-snippet {
+    background: #fff;
+    width: 10px;
+    height: 100%;
+    cursor: move;
+    margin-left: 43%;
+}
+.snip-duration-field {
+    margin-top: 0;
+}
