@@ -1,5 +1,9 @@
-
 body { padding-top: 70px }
+
+.navbar .navbar-form {
+    margin: 2px;
+}
+
 .video-search-query {
     margin-top: 0;
 }

@@ -11,7 +11,7 @@
           href="https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css" />
     <link rel="stylesheet"
           href="../static/css/style.css"
-          th:href="@{/css/style.css}">
+          th:href="@{/css/style.css}" />
 </head>
 <body>
     <main class="container">
@@ -49,11 +49,10 @@
             <div class="snip-video video-editing col-md-6">
                 <div class="snip-video-editing">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <div class="embed-responsive-item">
+                        <div class="embed-responsive-item" data-hook="video-editor-video">
                             <img class="snip-video-placeholder"
                                  src="https://i.ytimg.com/vi/LHpIvq2Lf_E/sddefault.jpg"
-                                 th:alt="'https://youtu.be/' + ${video.videoId} + '?t=' + ${video.startSeconds}"
-                                 th:src="'https://i.ytimg.com/vi/' + ${video.videoId} + '/sddefault.jpg'" />
+                                 alt="Video" />
                         </div>
                     </div>
                     <div class="snip-video-timeline">
@@ -64,7 +63,7 @@
                     <div class="col-sm-4 form-group snip-duration-field">
                         <label class="control-label" for="snip-video-duration-start">Start</label>
                         <input id="snip-video-duration-start"
-                               data-hook="mui-focusable"
+                               data-hook="video-editor-start"
                                class="form-control"
                                type="text"
                                value="0:00" />
@@ -72,7 +71,7 @@
                     <div class="col-sm-4 form-group snip-duration-field">
                         <label class="control-label" for="snip-video-duration-end">End</label>
                         <input id="snip-video-duration-end"
-                               data-hook="mui-focusable"
+                               data-hook="video-editor-end"
                                class="form-control"
                                type="text"
                                value="0:10" />
