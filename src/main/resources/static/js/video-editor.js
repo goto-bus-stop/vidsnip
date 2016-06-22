@@ -20,7 +20,7 @@ function resultTemplate (video) {
 }
 
 function padZero (n) {
-    return n < 10 ? `0${n}` : n
+    return n < 10 ? '0' + n : n
 }
 
 function formatDuration (duration) {

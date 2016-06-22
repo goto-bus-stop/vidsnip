@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd src/main/resources/static/js; browserify -e ./app.js -r ./Promise.js:bluebird > ./bundle.js"
+    "build": "cd src/main/resources/static/js; browserify -e ./app.js -r ./Promise.js:bluebird > ./bundle.js; [ x$MINIFY != x1 ] || uglifyjs --compress --mangle -o ./bundle.js -- ./bundle.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/goto-bus-stop/vidsnip#readme",
   "devDependencies": {
-    "browserify": "^13.0.1"
+    "browserify": "^13.0.1",
+    "uglify-js": "^2.6.4"
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
