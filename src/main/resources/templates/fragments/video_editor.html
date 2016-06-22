@@ -10,22 +10,30 @@
     <link rel="stylesheet"
           href="https://fezvrasta.github.io/bootstrap-material-design/dist/css/ripples.min.css" />
     <link rel="stylesheet"
-          href="../static/css/style.css"
+          href="../../static/css/style.css"
           th:href="@{/css/style.css}" />
 </head>
 <body>
     <main class="container">
         <form class="video-editor row"
               data-hook="video-editor"
+              th:action="@{/new}"
+              method="post"
               th:fragment="editor">
+            <input type="hidden" name="video_id" data-hook="video-editor-video-id" />
             <aside class="video-search col-md-6">
                 <div class="form-group video-search-query">
                     <input type="text"
                            class="form-control"
                            placeholder="Search Videos" />
                 </div>
+                <div class="video-search-loading">
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                </div>
                 <ul class="video-search-results media-list">
-                    <li class="media">
+                    <li class="media video-search-result" id="demo-result" th:remove="all">
                         <div class="media-left">
                             <img class="media-object"
                                  alt="Thumbnail"
@@ -63,6 +71,7 @@
                     <div class="col-sm-4 form-group snip-duration-field">
                         <label class="control-label" for="snip-video-duration-start">Start</label>
                         <input id="snip-video-duration-start"
+                               name="start_seconds"
                                data-hook="video-editor-start"
                                class="form-control"
                                type="text"
@@ -71,24 +80,31 @@
                     <div class="col-sm-4 form-group snip-duration-field">
                         <label class="control-label" for="snip-video-duration-end">End</label>
                         <input id="snip-video-duration-end"
+                               name="end_seconds"
                                data-hook="video-editor-end"
                                class="form-control"
                                type="text"
-                               value="0:10" />
+                               value="0:10"
+                               readonly="" />
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <button class="btn btn-primary" type="submit">
+                            Publish
+                        </button>
                     </div>
                 </div>
             </div>
         </form>
     </main>
 
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
-    <script src="https://fezvrasta.github.io/bootstrap-material-design/dist/js/material.js"></script>
-    <script src="https://fezvrasta.github.io/bootstrap-material-design/dist/js/ripples.js"></script>
+    <script src="../../static/js/bundle.js"></script>
     <script>
-        $.material.init()
+        jQuery('#demo-result').data('video', {
+            id: 'ty1UOeUAWJM',
+            title: 'The Strokes - You Only Live Once',
+            thumbnail: 'https://i.ytimg.com/vi/pT68FS3YbQ4/hqdefault.jpg',
+            description: "The Strokes' official music video for 'You Only Live Once'. Click to listen to The Strokes on Spotify: http://smarturl.it/StrokesRepSpot?IQi\nAs featured on First Impressions Of Earth. Click to buy the track or album via iTunes: http://smarturl.it/StrokesYoloITunes?\nGoogle Play: http://smarturl.it/StrokesYoloPlay?IQ\nAmazon: http://smarturl.it/StrokesYoloAmz?IQi"
+        })
     </script>
 </body>
 </html>

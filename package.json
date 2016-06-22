@@ -1,0 +1,32 @@
+{
+  "name": "vidsnip",
+  "version": "1.0.0",
+  "description": "Video Snippet-based Social Network.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd src/main/resources/static/js; browserify -e ./app.js -r ./Promise.js:bluebird > ./bundle.js; [ x$MINIFY != x1 ] || uglifyjs --compress --mangle -o ./bundle.js -- ./bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goto-bus-stop/vidsnip.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goto-bus-stop/vidsnip/issues"
+  },
+  "homepage": "https://github.com/goto-bus-stop/vidsnip#readme",
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "uglify-js": "^2.6.4"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "bootstrap-material-design": "^0.5.10",
+    "es6-promise": "^3.2.1",
+    "jquery": "^2.2.4",
+    "youtube-player": "^3.0.4"
+  }
+}

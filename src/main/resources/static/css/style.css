@@ -7,6 +7,24 @@ body { padding-top: 70px }
 .video-search-query {
     margin-top: 0;
 }
+.video-search-results {
+    overflow-y: scroll;
+}
+.video-search-loading {
+    display: none;
+}
+.video-search-loading.is-visible {
+    display: block;
+}
+
+.video-search-result {
+    cursor: pointer;
+}
+.video-search-result.is-selected {
+    background: #009688;
+    color: #fff;
+}
+
 .snip-video-editing {
     position: relative;
 }
@@ -22,7 +40,6 @@ body { padding-top: 70px }
     width: 10px;
     height: 100%;
     cursor: move;
-    margin-left: 43%;
 }
 .snip-duration-field {
     margin-top: 0;

@@ -32,3 +32,6 @@ target/
 #Sublime Text
 
 *.sublime*
+
+# JavaScripts
+/node_modules
