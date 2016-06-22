@@ -1,9 +1,9 @@
 package space.vidsnip;
 
-import space.vidsnip.model.Snip;
-import space.vidsnip.model.SnipRepository;
-import space.vidsnip.model.User;
-import space.vidsnip.model.UserRepository;
+import space.vidsnip.model.snip.Snip;
+import space.vidsnip.model.snip.SnipRepository;
+import space.vidsnip.model.user.User;
+import space.vidsnip.model.user.UserRepository;
 import space.vidsnip.model.Video;
 
 import com.google.api.services.youtube.model.SearchResult;
