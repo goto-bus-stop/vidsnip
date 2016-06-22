@@ -1,17 +1,12 @@
-package space.vidsnip.model;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+package space.vidsnip.model.user;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import space.vidsnip.model.snip.Snip;
 
 @Entity(name = "User")
 public class User {

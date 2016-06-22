@@ -1,13 +1,12 @@
 package space.vidsnip;
 
-import space.vidsnip.model.User;
-import space.vidsnip.model.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import space.vidsnip.model.user.UserRepository;
 
 import java.util.LinkedList;
 

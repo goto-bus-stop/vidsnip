@@ -1,7 +1,7 @@
 package space.vidsnip;
 
-import space.vidsnip.model.User;
-import space.vidsnip.model.UserRepository;
+import space.vidsnip.model.user.User;
+import space.vidsnip.model.user.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
