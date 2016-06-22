@@ -9,6 +9,7 @@ import space.vidsnip.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +27,12 @@ public class TimelineController {
     private UserRepository users;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String timeline(Model model) {
-        final long currentUserId = 1;
-        model.addAttribute("user", this.users.findOne(currentUserId));
+    public String timeline(
+        Authentication auth,
+        Model model
+    ) {
+        User user = this.users.findByUsername(auth.getName()).get();
+        model.addAttribute("user", user);
         model.addAttribute("snips", this.snips.findAll());
         return "timeline";
     }

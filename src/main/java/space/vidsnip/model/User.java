@@ -30,6 +30,12 @@ public class User {
     @Column(unique = true)
     private String username;
 
+    @Column(unique = true)
+    private String email;
+
+    @Column(length = 60)
+    private String password;
+
     @Column(name = "real_name")
     private String realName;
 
@@ -64,6 +70,22 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEncryptedPassword() {
+        return this.password;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.password = encryptedPassword;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRealName() {
