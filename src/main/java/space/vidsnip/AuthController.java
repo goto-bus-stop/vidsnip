@@ -1,5 +1,7 @@
 package space.vidsnip;
 
+import space.vidsnip.model.graphuser.GraphUser;
+import space.vidsnip.model.graphuser.GraphUserRepository;
 import space.vidsnip.model.user.User;
 import space.vidsnip.model.user.UserRepository;
 
@@ -17,6 +19,8 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository users;
+    @Autowired
+    private GraphUserRepository graphUsers;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegisterForm() {
@@ -37,7 +41,10 @@ public class AuthController {
         user.setEmail(email);
         user.setEncryptedPassword(encryptedPassword);
 
+        GraphUser graphUser = new GraphUser(username);
+
         this.users.save(user);
+        this.graphUsers.save(graphUser);
 
         model.addAttribute("user", user);
         return "timeline";
