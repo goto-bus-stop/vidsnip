@@ -7,6 +7,16 @@ body { padding-top: 70px }
 .video-search-query {
     margin-top: 0;
 }
+.video-search-results {
+    overflow-y: scroll;
+}
+.video-search-loading {
+    display: none;
+}
+.video-search-loading.is-visible {
+    display: block;
+}
+
 .snip-video-editing {
     position: relative;
 }
