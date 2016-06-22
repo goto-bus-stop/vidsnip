@@ -1,20 +1,23 @@
-;(function () {
+var $ = require('jquery')
+var youtubePlayer = require('youtube-player')
 
-function $ (sel, map) {
-    return [].map.call(document.querySelectorAll(sel), map || Object)
-}
+module.exports = function (embeddable) {
+    embeddable = $(embeddable)
+    var videoId = embeddable.data('videoId')
+    var start = embeddable.data('start')
+    var end = embeddable.data('end')
 
-window.onYouTubeIframeAPIReady = function () {
-    $('[data-hook*="embed"]', function (embed) {
-        var videoId = embed.dataset.videoId
-        var start = embed.dataset.start
-        var end = embed.dataset.end
-        new YT.Player(embed, {
+    embeddable.one('click', function (e) {
+        // Some embeds are placed inside links.
+        e.preventDefault()
+
+        youtubePlayer(embeddable[0], {
             height: '100%',
             width: '100%',
             videoId: videoId,
             playerVars: {
-              controls: 0,
+              autoplay: 1,
+              controls: 0,        // no controls
               rel: 0,             // do not show related videos after the video finishes
               showinfo: 0,        // do not show video title etc in the frame
               iv_load_policy: 3,  // disable annotations
@@ -25,10 +28,3 @@ window.onYouTubeIframeAPIReady = function () {
         })
     })
 }
-
-var script = document.createElement('script')
-script.src = 'https://www.youtube.com/iframe_api'
-script.async = true
-document.body.appendChild(script)
-
-}())
