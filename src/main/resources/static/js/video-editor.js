@@ -53,6 +53,7 @@ module.exports = function (editor) {
     var $knob = $timeline.find('.snip-video-timeline-snippet')
     var $startTime = editor.find('[data-hook="video-editor-start"]')
     var $endTime = editor.find('[data-hook="video-editor-end"]')
+    var $videoId = editor.find('[data-hook="video-editor-video-id"]')
 
     var player = youtubePlayer($video.children()[0], {
         playerVars: {
@@ -110,6 +111,8 @@ module.exports = function (editor) {
                 $(this).removeClass('is-selected')
             }
         })
+
+        $videoId.val(video.id || '')
 
         if (video) {
             player.loadVideoById(video.id)

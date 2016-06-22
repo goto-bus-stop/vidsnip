@@ -1,11 +1,18 @@
 package space.vidsnip;
 
+import space.vidsnip.model.Snip;
+import space.vidsnip.model.SnipRepository;
+import space.vidsnip.model.User;
+import space.vidsnip.model.UserRepository;
+import space.vidsnip.model.Video;
+
 import com.google.api.services.youtube.model.SearchResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +28,50 @@ import java.io.IOException;
 public class SnipController {
     @Autowired
     private YouTubeAPI youtube;
+    @Autowired
+    private SnipRepository snips;
+    @Autowired
+    private UserRepository users;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String createSnip(Model model) {
         return "create_snip";
+    }
+
+    private final int[] durationMultipliers = { 1, 60, 60, 24 };
+    /**
+     * Parse a duration like 7:30 into a number of seconds.
+     */
+    private int parseDuration(String str) {
+        String[] parts = str.split(":");
+        int duration = 0;
+        // Walk through the duration parts from right to left, and through the
+        // duration multipliers from left to right.
+        int di = 0;
+        for (int pi = parts.length - 1; pi >= 0; pi--, di++) {
+            duration += Integer.parseInt(parts[pi]) * this.durationMultipliers[di];
+        }
+        return duration;
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    public String publishSnip(
+        Authentication auth,
+        @RequestParam("video_id") String videoId,
+        @RequestParam("start_seconds") String startSeconds,
+        @RequestParam("end_seconds") String endSeconds
+    ) {
+        User author = this.users.findByUsername(auth.getName()).get();
+        Video video = new Video(
+            videoId,
+            this.parseDuration(startSeconds),
+            this.parseDuration(endSeconds)
+        );
+        Snip snip = new Snip(author, video);
+
+        this.snips.save(snip);
+
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/new/search", method = RequestMethod.GET)

@@ -17,7 +17,10 @@
     <main class="container">
         <form class="video-editor row"
               data-hook="video-editor"
+              th:action="@{/new}"
+              method="post"
               th:fragment="editor">
+            <input type="hidden" name="video_id" data-hook="video-editor-video-id" />
             <aside class="video-search col-md-6">
                 <div class="form-group video-search-query">
                     <input type="text"
@@ -68,6 +71,7 @@
                     <div class="col-sm-4 form-group snip-duration-field">
                         <label class="control-label" for="snip-video-duration-start">Start</label>
                         <input id="snip-video-duration-start"
+                               name="start_seconds"
                                data-hook="video-editor-start"
                                class="form-control"
                                type="text"
@@ -76,11 +80,17 @@
                     <div class="col-sm-4 form-group snip-duration-field">
                         <label class="control-label" for="snip-video-duration-end">End</label>
                         <input id="snip-video-duration-end"
+                               name="end_seconds"
                                data-hook="video-editor-end"
                                class="form-control"
                                type="text"
                                value="0:10"
                                readonly="" />
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <button class="btn btn-primary" type="submit">
+                            Publish
+                        </button>
                     </div>
                 </div>
             </div>
