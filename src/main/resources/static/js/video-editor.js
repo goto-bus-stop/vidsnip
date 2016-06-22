@@ -19,6 +19,29 @@ function resultTemplate (video) {
         .append(left, body)
 }
 
+function padZero (n) {
+    return n < 10 ? `0${n}` : n
+}
+
+function formatDuration (duration) {
+    var h = Math.floor(duration / 3600)
+    var m = Math.floor((duration % 3600) / 60)
+    var s = padZero(Math.floor(duration % 60))
+    return (h > 0 ? [ h, padZero(m), s ] : [ m, s ]).join(':')
+}
+
+function parseDuration (duration) {
+    var parts = duration.split(':').reverse()
+    var mult = [ 1, 60, 60, 24 ]
+    return parts.map(function (part) {
+        return parseInt(part, 10)
+    }).map(function (part, i) {
+        return part * mult[i]
+    }).reduce(function (a, b) {
+        return a + b
+    })
+}
+
 module.exports = function (editor) {
     editor = $(editor)
 
@@ -26,6 +49,10 @@ module.exports = function (editor) {
     var $results = editor.find('.video-search-results')
     var $loader = editor.find('.video-search-loading')
     var $video = editor.find('[data-hook="video-editor-video"]')
+    var $timeline = editor.find('.snip-video-timeline')
+    var $knob = $timeline.find('.snip-video-timeline-snippet')
+    var $startTime = editor.find('[data-hook="video-editor-start"]')
+    var $endTime = editor.find('[data-hook="video-editor-end"]')
 
     var player = youtubePlayer($video.children()[0], {
         playerVars: {
@@ -34,6 +61,16 @@ module.exports = function (editor) {
             showinfo: 0,       // do not show video title etc in the frame
             iv_load_policy: 3, // disable annotations
             modestbranding: 1  // hide youtube logo
+        }
+    })
+
+    player.on('ready', updateTimeline)
+    var timelineInterval
+    player.on('stateChange', function (e) {
+        if (e.data === 1) {
+            timelineInterval = setInterval(updateTimeline, 1000)
+        } else {
+            clearInterval(timelineInterval)
         }
     })
 
@@ -79,5 +116,30 @@ module.exports = function (editor) {
         } else {
             player.stopVideo();
         }
+    }
+
+    var seekTimer
+    $startTime.on('input', function () {
+        clearTimeout(seekTimer)
+        var startTime = parseDuration($startTime.val())
+        player.seekTo(startTime, false)
+        seekTimer = setTimeout(function () {
+            player.seekTo(startTime, true)
+        }, 300)
+    })
+
+    function updateTimeline () {
+        Promise.all([ player.getDuration(), player.getCurrentTime() ])
+            .then(function (arr) {
+                var duration = arr[0]
+                var currentTime = arr[1]
+                console.log(arr)
+                var snipDuration = 10
+                $knob.css({ 'margin-left': (currentTime / duration * 100) + '%' })
+                if (!$startTime.is(':focus')) {
+                    $startTime.val(formatDuration(currentTime))
+                    $endTime.val(formatDuration(currentTime + snipDuration))
+                }
+            })
     }
 }
