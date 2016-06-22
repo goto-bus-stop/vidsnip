@@ -1,4 +1,4 @@
-package space.vidsnip.model;
+package space.vidsnip.model.snip;
 
 import java.util.Date;
 import javax.persistence.Embedded;
@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import space.vidsnip.model.user.User;
+import space.vidsnip.model.Video;
 
 @Entity(name = "Snip")
 public class Snip {
