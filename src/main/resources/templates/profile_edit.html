@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head ('Edit Profile')"></head>
+<body>
+    <nav th:replace="layout :: navigation"></nav>
+    <main class="container-fluid">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="well">
+                <form class="form-horizontal"
+                      th:action="@{/me/edit}"
+                      method="post"
+                      th:fragment="form (user)">
+                    <fieldset>
+                        <legend>Profile</legend>
+                        <div th:if="${error} != null" class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <p th:text="${error}" th:remove="tag" />
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Username</label>
+                            <div class="col-md-10">
+                                <input class="form-control"
+                                       placeholder="Username"
+                                       type="text"
+                                       th:value="${user.username}"
+                                       disabled="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDisplayName" class="col-md-2 control-label">Display name</label>
+                            <div class="col-md-10">
+                                <input class="form-control"
+                                       id="inputDisplayName"
+                                       name="real_name"
+                                       placeholder="Display name"
+                                       type="text"
+                                       th:value="${user.realName}"
+                                       autofocus="" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <p class="col-md-10 col-md-offset-2">
+                                You need to enter your current password to change
+                                the below details.
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-md-2 control-label">Current Password</label>
+                            <div class="col-md-10">
+                                <input class="form-control"
+                                       id="inputPassword"
+                                       name="password"
+                                       placeholder="Current Password"
+                                       type="password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-md-2 control-label">Email</label>
+                            <div class="col-md-10">
+                                <input class="form-control"
+                                       id="inputEmail"
+                                       name="email"
+                                       placeholder="Email"
+                                       type="email"
+                                       th:value="${user.email}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNewPassword" class="col-md-2 control-label">New Password</label>
+                            <div class="col-md-10">
+                                <input class="form-control"
+                                       id="inputNewPassword"
+                                       name="new_password"
+                                       placeholder="New Password"
+                                       type="password" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-2">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:replace="layout :: scripts"></th:block>
+</body>
+</html>

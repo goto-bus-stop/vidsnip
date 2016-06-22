@@ -65,17 +65,26 @@ public class TimelineController {
 
     @RequestMapping(value = "/@/{username}", method = RequestMethod.GET)
     public String userTimeline(
+        Authentication auth,
         Model model,
         @PathVariable String username,
         @RequestParam(value = "page", defaultValue = "0") int page,
         @RequestParam(value = "size", defaultValue = "10") int size
     ) {
+        Optional<User> currentUser = auth != null
+            ? this.users.findByUsername(auth.getName())
+            : Optional.empty();
         Pageable pageable = new PageRequest(page, size);
         return this.users.findByUsername(username)
             .map(user -> {
                 Optional<Video> video = user.getBio().map(Snip::getVideo);
                 model.addAttribute("bio", video.isPresent() ? video.get() : null);
                 model.addAttribute("user", user);
+                model.addAttribute("isOwnProfile", false);
+                currentUser.ifPresent(self -> {
+                    model.addAttribute("currentUser", self);
+                    model.addAttribute("isOwnProfile", self.getId().equals(user.getId()));
+                });
                 model.addAttribute("snips", this.snips.findByAuthor(user, pageable));
                 return "profile";
             })

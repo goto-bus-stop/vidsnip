@@ -15,11 +15,11 @@
 </head>
 <body>
     <main class="container">
-        <form class="video-editor row"
+        <form th:fragment="editor (post_to)"
+              class="video-editor row"
               data-hook="video-editor"
-              th:action="@{/new}"
-              method="post"
-              th:fragment="editor">
+              th:action="@{${post_to}}"
+              method="post">
             <input type="hidden" name="video_id" data-hook="video-editor-video-id" />
             <aside class="video-search col-md-6">
                 <div class="form-group video-search-query">
@@ -88,7 +88,7 @@
                                readonly="" />
                     </div>
                     <div class="col-sm-4 form-group">
-                        <button class="btn btn-primary" type="submit">
+                        <button class="btn btn-primary btn-raised" type="submit">
                             Publish
                         </button>
                     </div>

@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head ('Edit Profile')"></head>
+<body>
+    <nav th:replace="layout :: navigation"></nav>
+    <main class="container">
+        <h1>New Bio</h1>
+        <th:block th:replace="fragments/video_editor :: editor(post_to='/me/bio')"></th:block>
+    </main>
+
+    <th:block th:replace="layout :: scripts"></th:block>
+</body>
+</html>

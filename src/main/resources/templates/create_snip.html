@@ -4,7 +4,8 @@
 <body>
     <nav th:replace="layout :: navigation" />
     <main class="container">
-        <th:block th:replace="fragments/video_editor :: editor"></th:block>
+        <h1>New Snip</h1>
+        <th:block th:replace="fragments/video_editor :: editor(post_to='/new')"></th:block>
     </main>
     <th:block th:replace="layout :: scripts"></th:block>
 </body>

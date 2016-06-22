@@ -38,20 +38,29 @@ public class SnipController {
         return "create_snip";
     }
 
-    private final int[] durationMultipliers = { 1, 60, 60, 24 };
+    final private static int[] durationMultipliers = { 1, 60, 60, 24 };
     /**
      * Parse a duration like 7:30 into a number of seconds.
      */
-    private int parseDuration(String str) {
+    private static int parseDuration(String str) {
         String[] parts = str.split(":");
         int duration = 0;
         // Walk through the duration parts from right to left, and through the
         // duration multipliers from left to right.
         int di = 0;
         for (int pi = parts.length - 1; pi >= 0; pi--, di++) {
-            duration += Integer.parseInt(parts[pi]) * this.durationMultipliers[di];
+            duration += Integer.parseInt(parts[pi]) * durationMultipliers[di];
         }
         return duration;
+    }
+
+    public static Snip makeSnip(User author, String videoId, String startSeconds, String endSeconds) {
+        Video video = new Video(
+            videoId,
+            parseDuration(startSeconds),
+            parseDuration(endSeconds)
+        );
+        return new Snip(author, video);
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
@@ -62,12 +71,7 @@ public class SnipController {
         @RequestParam("end_seconds") String endSeconds
     ) {
         User author = this.users.findByUsername(auth.getName()).get();
-        Video video = new Video(
-            videoId,
-            this.parseDuration(startSeconds),
-            this.parseDuration(endSeconds)
-        );
-        Snip snip = new Snip(author, video);
+        Snip snip = makeSnip(author, videoId, startSeconds, endSeconds);
 
         this.snips.save(snip);
 
