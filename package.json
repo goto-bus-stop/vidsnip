@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify -e src/main/resources/static/js/app.js > src/main/resources/static/js/bundle.js"
+    "build": "cd src/main/resources/static/js; browserify -e ./app.js -r ./Promise.js:bluebird > ./bundle.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "bootstrap-material-design": "^0.5.10",
+    "es6-promise": "^3.2.1",
     "jquery": "^2.2.4",
     "youtube-player": "^3.0.4"
   }

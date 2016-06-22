@@ -1,3 +1,5 @@
+require('es6-promise')
+
 var $ = window.jQuery = require('jquery')
 require('bootstrap')
 require('bootstrap-material-design')
