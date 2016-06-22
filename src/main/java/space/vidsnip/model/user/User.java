@@ -1,13 +1,13 @@
 package space.vidsnip.model.user;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -20,11 +20,18 @@ import space.vidsnip.model.snip.Snip;
 @Entity(name = "User")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue
+    @Column(columnDefinition = "BINARY (16)")
+    private UUID id;
 
     @Column(unique = true)
     private String username;
+
+    @Column(unique = true)
+    private String email;
+
+    @Column(length = 60)
+    private String password;
 
     @Column(name = "real_name")
     private String realName;
@@ -50,16 +57,38 @@ public class User {
         this.realName = realName;
     }
 
+    public UUID getId() {
+        return this.id;
+    }
+
     public String getUsername() {
         return this.username;
     }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEncryptedPassword() {
+        return this.password;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.password = encryptedPassword;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRealName() {
         return this.realName;
     }
+
     public void setRealName(String realName) {
         this.realName = realName;
     }
@@ -67,6 +96,7 @@ public class User {
     public Optional<Snip> getBio() {
         return Optional.ofNullable(this.bio);
     }
+
     public void setBio(Snip bio) {
         this.bio = bio;
     }

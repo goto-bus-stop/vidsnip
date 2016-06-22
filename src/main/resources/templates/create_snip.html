@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head ('Create snip')"></head>
+<body>
+    <nav th:replace="layout :: navigation" />
+    <main class="container">
+        <th:block th:replace="fragments/video_editor :: editor"></th:block>
+    </main>
+    <th:block th:replace="layout :: scripts"></th:block>
+</body>
+</html>

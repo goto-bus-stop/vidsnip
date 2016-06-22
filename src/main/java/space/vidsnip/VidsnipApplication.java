@@ -9,7 +9,5 @@ public class VidsnipApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VidsnipApplication.class, args);
 	}
-
-
 }
 

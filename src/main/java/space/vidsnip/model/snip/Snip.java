@@ -1,6 +1,8 @@
 package space.vidsnip.model.snip;
 
 import java.util.Date;
+import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,9 @@ import space.vidsnip.model.Video;
 @Entity(name = "Snip")
 public class Snip {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue
+    @Column(columnDefinition = "BINARY (16)")
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
@@ -37,7 +40,7 @@ public class Snip {
         this.video = video;
     }
 
-    public long getId() {
+    public UUID getId() {
         return this.id;
     }
 

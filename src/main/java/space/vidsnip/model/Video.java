@@ -10,6 +10,13 @@ public class Video {
 
     protected Video() {}
 
+    /**
+     * Create a Video snippet.
+     *
+     * @param videoId YouTube video ID.
+     * @param startSeconds Start time in this video Snip.
+     * @param endSeconds End time in this video Snip.
+     */
     public Video(String videoId, int startSeconds, int endSeconds) {
         this.videoId = videoId;
         this.startSeconds = startSeconds;
