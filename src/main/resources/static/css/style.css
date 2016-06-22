@@ -17,6 +17,14 @@ body { padding-top: 70px }
     display: block;
 }
 
+.video-search-result {
+    cursor: pointer;
+}
+.video-search-result.is-selected {
+    background: #009688;
+    color: #fff;
+}
+
 .snip-video-editing {
     position: relative;
 }
