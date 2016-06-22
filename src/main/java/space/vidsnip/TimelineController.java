@@ -2,6 +2,7 @@ package space.vidsnip;
 
 import space.vidsnip.model.snip.Snip;
 import space.vidsnip.model.snip.SnipRepository;
+import space.vidsnip.model.user.User;
 import space.vidsnip.model.user.UserRepository;
 import space.vidsnip.model.Video;
 

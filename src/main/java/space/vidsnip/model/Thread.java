@@ -1,10 +1,7 @@
 package space.vidsnip.model;
 
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import space.vidsnip.model.snip.Snip;
 
