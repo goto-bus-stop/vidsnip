@@ -13,6 +13,11 @@ import space.vidsnip.model.snip.SnipRepository;
 import space.vidsnip.model.user.User;
 import space.vidsnip.model.user.UserRepository;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by Marijn on 22/06/2016.
  */
@@ -36,9 +41,6 @@ public class WatchController {
         User user = this.users.findByUsername(auth.getName()).get();
         User watch = this.users.findByUsername(username).get();
 
-        System.out.println("Authname: "+auth.getName());
-        System.out.println("Watchname: "+username);
-
         GraphUser graphWatch = graphUsers.findByUsername(watch.getUsername());
         GraphUser graphUser = graphUsers.findByUsername(user.getUsername());
 
@@ -48,5 +50,28 @@ public class WatchController {
         model.addAttribute("user", user);
         model.addAttribute("snips", this.snips.findAll());
         return "timeline";
+    }
+
+    @RequestMapping(value = "/watcherslist", method = RequestMethod.GET)
+    public String watchList(
+            Authentication auth,
+            Model model
+    ) {
+        User user = this.users.findByUsername(auth.getName()).get();
+        GraphUser graphUser = graphUsers.findByUsername(user.getUsername());
+
+        List<String> usernames = new LinkedList<>();
+        for(GraphUser graphUserUsername : graphUser.getWatches()){
+            usernames.add(graphUserUsername.getName());
+        }
+
+        Collection<User> userList = users.findByUsernameIn(usernames);
+
+
+
+
+        model.addAttribute("user", user);
+        model.addAttribute("watches", userList);
+        return "userlist";
     }
 }

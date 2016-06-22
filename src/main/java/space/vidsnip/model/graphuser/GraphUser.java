@@ -44,4 +44,8 @@ public class GraphUser {
     public void setName(String name) {
         this.username = name;
     }
+
+    public Set<GraphUser> getWatches(){
+         return watches;
+    }
 }
