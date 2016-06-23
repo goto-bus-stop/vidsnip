@@ -93,7 +93,9 @@ public class TimelineController {
                     model.addAttribute("isOwnProfile", self.getId().equals(user.getId()));
                     model.addAttribute("isWatching", this.isWatching(self, user));
                 });
-                model.addAttribute("snips", this.snips.findByAuthor(user, pageable));
+                model.addAttribute("snips",
+                    this.snips.findByAuthorOrderByCreatedAtDesc(user, pageable)
+                );
                 return "profile";
             })
             .orElseGet(() -> {

@@ -44,3 +44,9 @@ body { padding-top: 70px }
 .snip-duration-field {
     margin-top: 0;
 }
+
+[data-hook="embed"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
