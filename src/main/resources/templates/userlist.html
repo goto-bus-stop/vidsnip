@@ -17,7 +17,11 @@
             <div class="col-sm-3" th:each="user : ${watches}">
                 <div class="list-group-item">
                     <div class="row-picture">
-                        <img class="circle" src="http://lorempixel.com/56/56/people/1" alt="icon"></img>
+                        <img class="circle" src="/img/snip.jpg}"
+                            th:src="${user.getBio().isPresent()}?
+                            'https://i.ytimg.com/vi/' + ${user.getBio().get().video.videoId} + '/sddefault.jpg':
+                            '/img/snip.jpg'"   alt="icon" />
+
                     </div>
                     <div class="row-content">
                         <h4 class="list-group-item-heading" th:text="${user.username}"></h4>
