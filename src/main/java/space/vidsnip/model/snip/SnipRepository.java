@@ -16,4 +16,5 @@ public interface SnipRepository extends PagingAndSortingRepository<Snip, Long> {
     Page<Snip> findByAuthorUsername(@Param("user") String username, Pageable pageable);
     Page<Snip> findByAuthor(User user, Pageable pageable);
     Page<Snip> findByAuthorInOrderByCreatedAtDesc(List<User> users, Pageable pageable);
+    Page<Snip> findByAuthorOrderByCreatedAtDesc(User users, Pageable pageable);
 }
