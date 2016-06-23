@@ -31,12 +31,11 @@ public class WatchController {
     @Autowired
     private GraphUserRepository graphUsers;
 
-    @RequestMapping(value = "/watch/{username}", method = RequestMethod.GET)
+    @RequestMapping(value = "/watch/{username}")
     public String watchUser(
-            Authentication auth,
-            Model model,
-            @PathVariable String username
-
+        Authentication auth,
+        Model model,
+        @PathVariable String username
     ) {
         User user = this.users.findByUsername(auth.getName()).get();
         User watch = this.users.findByUsername(username).get();
@@ -47,9 +46,25 @@ public class WatchController {
         graphUser.addWatch(graphWatch);
         graphUsers.save(graphUser);
 
-        model.addAttribute("user", user);
-        model.addAttribute("snips", this.snips.findAll());
-        return "timeline";
+        return "redirect:/@/" + watch.getUsername();
+    }
+
+    @RequestMapping(value = "/unwatch/{username}")
+    public String unwatchUser(
+        Authentication auth,
+        Model model,
+        @PathVariable String username
+    ) {
+        User user = this.users.findByUsername(auth.getName()).get();
+        User watch = this.users.findByUsername(username).get();
+
+        GraphUser graphWatch = graphUsers.findByUsername(watch.getUsername());
+        GraphUser graphUser = graphUsers.findByUsername(user.getUsername());
+
+        graphUser.removeWatch(graphWatch);
+        graphUsers.save(graphUser);
+
+        return "redirect:/@/" + watch.getUsername();
     }
 
     @RequestMapping(value = "/watcherslist", method = RequestMethod.GET)

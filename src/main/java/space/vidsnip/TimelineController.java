@@ -63,6 +63,12 @@ public class TimelineController {
         return "timeline";
     }
 
+    private boolean isWatching(User self, User other) {
+        GraphUser gself = this.graphUsers.findByUsername(self.getUsername());
+        GraphUser gother = this.graphUsers.findByUsername(other.getUsername());
+        return gself != null && gother != null && gself.isWatching(gother);
+    }
+
     @RequestMapping(value = "/@/{username}", method = RequestMethod.GET)
     public String userTimeline(
         Authentication auth,
@@ -81,9 +87,11 @@ public class TimelineController {
                 model.addAttribute("bio", video.isPresent() ? video.get() : null);
                 model.addAttribute("user", user);
                 model.addAttribute("isOwnProfile", false);
+                model.addAttribute("isWatching", false);
                 currentUser.ifPresent(self -> {
                     model.addAttribute("currentUser", self);
                     model.addAttribute("isOwnProfile", self.getId().equals(user.getId()));
+                    model.addAttribute("isWatching", this.isWatching(self, user));
                 });
                 model.addAttribute("snips", this.snips.findByAuthor(user, pageable));
                 return "profile";
