@@ -7,11 +7,14 @@ module.exports = function (embeddable) {
     var start = embeddable.data('start')
     var end = embeddable.data('end')
 
-    embeddable.one('click', function (e) {
+    var player
+    embeddable.on('click', function (e) {
         // Some embeds are placed inside links.
-        e.preventDefault()
+        if (!player) {
+            e.preventDefault()
+        }
 
-        youtubePlayer(embeddable[0], {
+        player = youtubePlayer(embeddable[0], {
             height: '100%',
             width: '100%',
             videoId: videoId,
@@ -24,6 +27,12 @@ module.exports = function (embeddable) {
               modestbranding: 1,  // hide youtube logo
               start: start,
               end: end
+            }
+        })
+        player.on('stateChange', function (e) {
+            if (e.data === 0) {
+                player.destroy();
+                player = null
             }
         })
     })
