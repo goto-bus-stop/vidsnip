@@ -1,5 +1,7 @@
 package space.vidsnip;
 
+import space.vidsnip.model.graphuser.GraphUser;
+import space.vidsnip.model.graphuser.GraphUserRepository;
 import space.vidsnip.model.snip.Snip;
 import space.vidsnip.model.snip.SnipRepository;
 import space.vidsnip.model.user.User;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,15 +30,36 @@ public class TimelineController {
     private SnipRepository snips;
     @Autowired
     private UserRepository users;
+    @Autowired
+    private GraphUserRepository graphUsers;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String timeline(
         Authentication auth,
-        Model model
+        Model model,
+        @RequestParam(value = "page", defaultValue = "0") int page,
+        @RequestParam(value = "size", defaultValue = "10") int size
     ) {
+        Pageable pageable = new PageRequest(page, size);
+
         User user = this.users.findByUsername(auth.getName()).get();
+
+        List<String> usernames = new LinkedList<>();
+        usernames.add(user.getUsername());
+
+
+        GraphUser graphUser = graphUsers.findByUsername(user.getUsername());
+        if(graphUser.getWatches()!=null&&graphUser.getWatches().size()>0){
+            for(GraphUser graphUserUsername : graphUser.getWatches()){
+                usernames.add(graphUserUsername.getName());
+            }
+        }
+
+
+        List<User> userList = users.findByUsernameIn(usernames);
+
         model.addAttribute("user", user);
-        model.addAttribute("snips", this.snips.findAll());
+        model.addAttribute("snips", this.snips.findByAuthorInOrderByCreatedAtDesc(userList,pageable));
         return "timeline";
     }
 

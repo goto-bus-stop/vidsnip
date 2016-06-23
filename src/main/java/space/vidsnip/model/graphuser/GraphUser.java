@@ -14,18 +14,18 @@ import java.util.Set;
 public class GraphUser {
 
     @GraphId
-    private Long id;
+    Long id;
 
-    private String name;
+    String username;
 
 
-    @Relationship(type = "Watches")
+    @Relationship(type = "WATCHES")
     private Set<GraphUser> watches;
 
     private GraphUser(){}
 
-    public GraphUser(String name){
-        this.name = name;
+    public GraphUser(String username){
+        this.username = username;
     }
 
 
@@ -38,10 +38,14 @@ public class GraphUser {
     }
 
     public String getName() {
-        return name;
+        return username;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.username = name;
+    }
+
+    public Set<GraphUser> getWatches(){
+         return watches;
     }
 }
