@@ -28,6 +28,26 @@
                     New Bio
                 </a>
             </div>
+            <div class="profile-info-watch"
+                 th:if="${currentUser} != null"
+                 th:unless="${isOwnProfile}">
+                <a th:unless="${isWatching}"
+                   href="#watch"
+                   th:href="@{'/watch/' + ${user.username}}"
+                   data-hook="watch"
+                   class="btn btn-primary btn-raised"
+                   th:text="'Watch ' + ${user.realName}">
+                    Watch User
+                </a>
+                <a th:if="${isWatching}"
+                   href="#unwatch"
+                   th:href="@{'/unwatch/' + ${user.username}}"
+                   data-hook="unwatch"
+                   class="btn btn-primary btn-raised"
+                   th:text="'Watching ' + ${user.realName}">
+                    Watching User
+                </a>
+            </div>
         </aside>
         <div class="col-sm-9">
             <th:block th:each="snip : ${snips}">
